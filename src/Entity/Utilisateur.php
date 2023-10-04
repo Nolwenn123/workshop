@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Contraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
+#[ORM\EntityListeners('App\EntityListener\UserListener')]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -43,8 +44,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?bool $type = true;
 
-    #[ORM\Column(length: 255)]
-    private $roles = [];
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
 
 
     public function getId(): ?int
